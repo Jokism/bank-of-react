@@ -11,6 +11,25 @@ const Credits = (props) => {
     <div>
       <h1>Credits</h1>
       <br/>
+      <table>
+	  <thead>
+	  <tr>
+	  <th>Description</th>
+	  <th>Amount</th>
+	  <th>Date</th>
+	  </tr>
+	  </thead>
+	  <tbody>
+
+      {props.credits ? props.credits.map((credit) => (
+	<tr key={credit.credit.key}>
+	      <td>{credit.credit.description}</td>
+	      <td>{credit.credit.amount.toFixed(2)}</td>
+	      <td>{credit.credit.date}</td>
+	      </tr>
+      )) : null}
+	  </tbody>
+      </table>
       <Link to="/">Return to Home</Link>
     </div>
   )

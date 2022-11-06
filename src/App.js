@@ -50,7 +50,8 @@ class App extends Component {
       })
       .then((data) => {
         for (const credit of data) {
-          this.addCredit({credit})
+          credit.key = data.indexOf(credit);
+          this.addCredit({credit});
 	}
       })
   }
@@ -64,7 +65,7 @@ class App extends Component {
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
     const DebitsComponent = () => (<Debits debits={this.state.debitList} />)
-    const CreditsComponent = () => (<Credits credits={this.state.creditsList} />)
+    const CreditsComponent = () => (<Credits credits={this.state.creditList} />)
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
