@@ -35,6 +35,13 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+  // Update state's creditList (array) based on user input of new credits
+  addCredit = (credit) => {
+    const newCreditList = this.state.creditList;
+    newCreditList.push(credit);
+    this.setState({ creditList: newCreditList });
+  }
+
   // Create Routes and React elements to be rendered using React components
   render() {  
     // Create React elements and pass input props to components
