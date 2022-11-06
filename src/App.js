@@ -42,6 +42,19 @@ class App extends Component {
     this.setState({ creditList: newCreditList });
   }
 
+  // Lifecycle method that updates the state using data from API requests
+  componentDidMount() {
+    fetch("https://moj-api.herokuapp.com/credits")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        for (const credit of data) {
+          this.addCredit({credit})
+	}
+      })
+  }
+
   // Create Routes and React elements to be rendered using React components
   render() {  
     // Create React elements and pass input props to components
