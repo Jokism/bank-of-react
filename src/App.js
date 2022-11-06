@@ -63,7 +63,8 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const DebitsComponent = () => (<Debits debits={this.state.debitList} />) 
+    const DebitsComponent = () => (<Debits debits={this.state.debitList} />)
+    const CreditsComponent = () => (<Credits credits={this.state.creditsList} />)
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
@@ -72,7 +73,7 @@ class App extends Component {
           <Route exact path="/" render={HomeComponent}/>
           <Route exact path="/userProfile" render={UserProfileComponent}/>
           <Route exact path="/login" render={LogInComponent}/>
-          <Route exact path="/credits" render={Credits}/>
+          <Route exact path="/credits" render={CreditsComponent}/>
           <Route exact path="/debits" render={DebitsComponent}/>
         </div>
       </Router>
