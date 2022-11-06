@@ -20,11 +20,11 @@ class App extends Component {
     this.state = {
       accountBalance: 1234567.89,
       debitList: [],
+      creditList: [],
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '11/22/99',
       },
-      credits: [],
     }
   }
   
