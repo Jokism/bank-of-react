@@ -10,10 +10,9 @@ import AccountBalance from "./AccountBalance";
 const Debits = (props) => {
   // Create the list of Debit items
   const debitsView = () => {
-    //const { debits } = props;
     return (
 	    props.debits
-	    ? props.debits.map((debit) => (  // Extract "id", "amount", "description" and "date" properties of each debits JSON array element
+	    ? props.debits.map((debit) => (  // Extract "key", "amount", "description" and "date" properties of each debits JSON array element
               <tr key={debit.key}>
                 <td>{debit.debit.description}</td>
                 <td>{debit.debit.amount.toFixed(2)}</td>
@@ -62,12 +61,15 @@ const Debits = (props) => {
           {debitsView()}
 	</tbody>
       </table>
-
+      <br/>
       <form onSubmit={handleSubmit}>
+	<label name="description">Description:</label>
         <input type="text" name="description" />
+	<label name="amount">Amount:</label>
         <input type="number" step="0.01" name="amount" />
         <button type="submit">Add Debit</button>
       </form>
+      <br/>
       {accountBalanceView()}
       <br/>
       <Link to="/">Return to Home</Link>
