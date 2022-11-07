@@ -20,18 +20,54 @@ class App extends Component {
     this.state = {
       accountBalance: 1234567.89,
       debitList: [],
+      totalDebits: 0,
+      creditList: [],
+      totalCredits: 0,
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '11/22/99',
-      }
+      },
     }
   }
-
+  
   // Update state's currentUser (userName) after "Log In" button is clicked
   mockLogIn = (logInInfo) => {  
     const newUser = {...this.state.currentUser}
     newUser.userName = logInInfo.userName
     this.setState({currentUser: newUser})
+  }
+
+  updateAccountBalance = () => {
+    this.setState({accountBalance : Number(this.state.totalCredits - Number(this.state.totalDebits)).toFixed(2)})
+  }
+  
+  // Update state's creditList (array) based on user input of new credits, update totalCredits based on credit's amount
+  addCredit = (credit) => {
+    const newCreditList = this.state.creditList;
+    credit.key = newCreditList.length;
+    newCreditList.push(credit);
+    this.setState({ totalCredits: (Number(this.state.totalCredits) + Number(credit.credit.amount)).toFixed(2) })
+    this.setState({ creditList: newCreditList });
+  }
+
+  // Lifecycle method that updates the state using data from API requests
+  componentDidMount() {
+    fetch("https://moj-api.herokuapp.com/credits")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        for (const credit of data) {
+          this.addCredit({credit});
+	}
+      })
+  }
+
+  // Lifecycle method that updates the accountBalance when a credit or debit is added
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.totalCredits !== prevState.totalCredits || this.state.totalDebits !== prevState.totalDebits) {
+	    this.updateAccountBalance();
+    }
   }
 
   // Create Routes and React elements to be rendered using React components
@@ -42,7 +78,12 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const DebitsComponent = () => (<Debits debits={this.state.debitList} />) 
+    const DebitsComponent = () => (<Debits debits={this.state.debitList} />)
+    const CreditsComponent = () => (<Credits credits={this.state.creditList} 
+		                             addCredit={this.addCredit}
+		                             accountBalance={this.state.accountBalance}
+	                                     updateAccountBalance={this.updateAccountBalance}
+	/>)
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
@@ -51,7 +92,7 @@ class App extends Component {
           <Route exact path="/" render={HomeComponent}/>
           <Route exact path="/userProfile" render={UserProfileComponent}/>
           <Route exact path="/login" render={LogInComponent}/>
-          <Route exact path="/credits" render={Credits}/>
+          <Route exact path="/credits" render={CreditsComponent}/>
           <Route exact path="/debits" render={DebitsComponent}/>
         </div>
       </Router>
