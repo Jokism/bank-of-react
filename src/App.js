@@ -38,6 +38,7 @@ class App extends Component {
   // Update state's creditList (array) based on user input of new credits
   addCredit = (credit) => {
     const newCreditList = this.state.creditList;
+    credit.key = newCreditList.length;
     newCreditList.push(credit);
     this.setState({ creditList: newCreditList });
   }
@@ -50,7 +51,6 @@ class App extends Component {
       })
       .then((data) => {
         for (const credit of data) {
-          credit.key = data.indexOf(credit);
           this.addCredit({credit});
 	}
       })
@@ -65,7 +65,7 @@ class App extends Component {
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
     const DebitsComponent = () => (<Debits debits={this.state.debitList} />)
-    const CreditsComponent = () => (<Credits credits={this.state.creditList} />)
+    const CreditsComponent = () => (<Credits credits={this.state.creditList} addCredit={this.addCredit} />)
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
