@@ -50,8 +50,18 @@ class App extends Component {
     this.setState({ creditList: newCreditList });
   }
 
+  // Update state's debitList (array) based on user input of new debits, update totalDebits based on debit amount
+  addDebit = (debit) => {
+    const newDebitList = this.state.debitList;
+    debit.key = newDebitList.length;
+    newDebitList.push(debit);
+    this.setState({ totalDebits: (Number(this.state.totalDebits) + Number(debit.debit.amount)).toFixed(2) })
+    this.setState({ debitList: newDebitList });
+  }
+
   // Lifecycle method that updates the state using data from API requests
   componentDidMount() {
+    // Fetch Credits data from API
     fetch("https://moj-api.herokuapp.com/credits")
       .then((response) => {
         return response.json();
@@ -59,6 +69,17 @@ class App extends Component {
       .then((data) => {
         for (const credit of data) {
           this.addCredit({credit});
+	}
+      })
+
+    // Fetch Debits data from API
+    fetch("https://moj-api.herokuapp.com/debits")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        for (const debit of data) {
+          this.addDebit({debit});
 	}
       })
   }
@@ -78,7 +99,11 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const DebitsComponent = () => (<Debits debits={this.state.debitList} />)
+    const DebitsComponent = () => (<Debits debits={this.state.debitList} 
+	                                     addDebit={this.addDebit}
+	                                     accountBalance={this.state.accountBalance}
+	                                     updateAccountBalance={this.updateAccountBalance}
+        />)
     const CreditsComponent = () => (<Credits credits={this.state.creditList} 
 		                             addCredit={this.addCredit}
 		                             accountBalance={this.state.accountBalance}
