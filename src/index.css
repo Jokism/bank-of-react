@@ -16,3 +16,7 @@ code {
 input, button {
 	margin: 5px;
 }
+
+table {
+  margin: auto;
+}
