@@ -25,7 +25,7 @@ const Credits = (props) => {
   }
 
   // Create view for displaying the account balance
-  const accountBalanceView = () => (<AccountBalance accountBalance={props.accountBalance} />)
+  const accountBalanceView = () => (<AccountBalance accountBalance={props.accountBalance} />);
 
   // When user clicked "Add credit" button, store form data and then update state through props
   const handleSubmit = (e) => {
@@ -38,7 +38,7 @@ const Credits = (props) => {
       key: props.credits.length,
     }
      
-    props.addCredit({credit: newCredit})  // Update state in the top-level component (App.js)
+    props.addCredit({credit: newCredit});  // Update state in the top-level component (App.js)
      
     // Reset form fields
     e.target.description.value = "";
@@ -62,12 +62,17 @@ const Credits = (props) => {
           {creditsView()}
 	</tbody>
       </table>
+      <br/>
       <form onSubmit={handleSubmit}>
+	<label name="description">Description:</label>
         <input type="text" name="description" />
+	<label name="amount">Amount:</label>
         <input type="number" step="0.01" name="amount" />
         <button type="submit">Add Credit</button>
       </form>
+      <br/>
       {accountBalanceView()}
+      <br/>
 
       <Link to="/">Return to Home</Link>
     </div>

@@ -1,5 +1,5 @@
-# bank-of-react-example-code-gh-pages
-This repository contains a React application example on how to implement client-side routing with React Router and its components including Route, Router Link, and Redirect.
+# bank-of-react
+This repository contains a React application that implements client-side routing with React Router and its components including Route, Router Link, and Redirect.
 
 ### Use the following commands to run the application
 
@@ -12,23 +12,34 @@ Note: This application uses React Router version 5. Optionally, you can run the 
 ```npm install react-router-dom@5.3.0 react-router@5.2.1```
 
 ### Live Link 
-[Website link](https://johnnylaicode.github.io/bank-of-react-example-code-gh-pages/)
+
+[Website link](https://jokism.github.io/bank-of-react/)
+
+
+### Group Members
+
+**Name**: Jerrod Mitchell
+
+**Github Username**: Jokism
+
+**Github Pages**: [Website](https://jokism.github.io/bank-of-react/)
+
 
 ----------
 ### Use the following steps to set up and deploy the React application to GitHub Pages
 #### 1. Download the React Application
 1. Download the GitHub repository ZIP file to your local machine and unzip it.
-2. Now you have the React application "bank-of-react-example-code-gh-pages" folder on your local machine. You can copy its files into your own React application folder--to be created in the next step.
+2. Now you have the React application "bank-of-react" folder on your local machine. You can copy its files into your own React application folder--to be created in the next step.
 
 #### 2. Create a New React Application and Copy Downloaded Files
 1. Start a terminal (e.g., Git Bash) on your local machine.
 2. Create a React application named "my-react-app" by entering the command: `npx create-react-app my-react-app`
-3. Copy the files from the "bank-of-react-example-code-gh-pages" folder into the "my-react-app" folder.
+3. Copy the files from the "bank-of-react" folder into the "my-react-app" folder.
 4. Go into the "my-react-app" folder.
 5. All the following steps can be performed inside the "my-react-app" folder. 
 
 #### 3. Add "basename" to Router Tag in "App.js" File
-1. In the `App.js` file (see line 38), located inside the `src` folder, make sure that you add the `basename` path in the `<Router>` tag using the following format: `<Router basename="/[repository name]">`
+1. In the `App.js` file, located inside the `src` folder, make sure that you add the `basename` path in the `<Router>` tag using the following format: `<Router basename="/[repository name]">`
 2. For the "my-react-app" application, it should be: `<Router basename="/my-react-app">`
 
 #### 4. Install "gh-pages" Package
@@ -36,7 +47,7 @@ Note: This application uses React Router version 5. Optionally, you can run the 
 2. After installation, it automatically adds the `gh-pages` version number in the "dependencies" section of the `package.json` file.
 
 #### 5. Add "homepage" Property in "package.json" File
-1. In the `package.json` file (see line 4), add a `homepage` property using the following format: `https://[your GitHub username].github.io/[repository name]`
+1. In the `package.json` file, add a `homepage` property using the following format: `https://[your GitHub username].github.io/[repository name]`
 2. For the "my-react-app" application, it should be:`"homepage": "https://[your GitHub username].github.io/my-react-app/",` 
     ```
     {
@@ -48,7 +59,7 @@ Note: This application uses React Router version 5. Optionally, you can run the 
     ```
 
 #### 6. Add Deployment Scripts in "package.json" File
-1. In the `package.json` file (see lines 19 and 20), add `predeploy` and `deploy` properties to the "scripts" section as follows:
+1. In the `package.json` file, add `predeploy` and `deploy` properties to the "scripts" section as follows:
     ```
     "scripts": {
         "predeploy": "npm run build",
