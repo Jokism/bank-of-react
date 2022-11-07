@@ -5,11 +5,12 @@ The Credits component contains information for Credits page view.
 Note: You need to work on this file for the Assignment.
 ==================================================*/
 import {Link} from 'react-router-dom';
+import AccountBalance from "./AccountBalance";
 
 const Credits = (props) => {
 
   // Create view for displaying credits passed by props
-  let creditsView = () => {
+  const creditsView = () => {
     return(
       props.credits 
       ? props.credits.map((credit) => (
@@ -22,6 +23,9 @@ const Credits = (props) => {
       : null
     )
   }
+
+  // Create view for displaying the account balance
+  const accountBalanceView = () => (<AccountBalance accountBalance={props.accountBalance} />)
 
   // When user clicked "Add credit" button, store form data and then update state through props
   const handleSubmit = (e) => {
@@ -63,6 +67,7 @@ const Credits = (props) => {
         <input type="number" step="0.01" name="amount" />
         <button type="submit">Add Credit</button>
       </form>
+      {accountBalanceView()}
 
       <Link to="/">Return to Home</Link>
     </div>

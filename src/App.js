@@ -20,7 +20,9 @@ class App extends Component {
     this.state = {
       accountBalance: 1234567.89,
       debitList: [],
+      totalDebits: 0,
       creditList: [],
+      totalCredits: 0,
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '11/22/99',
@@ -35,11 +37,16 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
-  // Update state's creditList (array) based on user input of new credits
+  updateAccountBalance = () => {
+    this.setState({accountBalance : Number(this.state.totalCredits - Number(this.state.totalDebits)).toFixed(2)})
+  }
+  
+  // Update state's creditList (array) based on user input of new credits, update totalCredits based on credit's amount
   addCredit = (credit) => {
     const newCreditList = this.state.creditList;
     credit.key = newCreditList.length;
     newCreditList.push(credit);
+    this.setState({ totalCredits: (Number(this.state.totalCredits) + Number(credit.credit.amount)).toFixed(2) })
     this.setState({ creditList: newCreditList });
   }
 
@@ -56,6 +63,13 @@ class App extends Component {
       })
   }
 
+  // Lifecycle method that updates the accountBalance when a credit or debit is added
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.totalCredits !== prevState.totalCredits || this.state.totalDebits !== prevState.totalDebits) {
+	    this.updateAccountBalance();
+    }
+  }
+
   // Create Routes and React elements to be rendered using React components
   render() {  
     // Create React elements and pass input props to components
@@ -65,7 +79,11 @@ class App extends Component {
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
     const DebitsComponent = () => (<Debits debits={this.state.debitList} />)
-    const CreditsComponent = () => (<Credits credits={this.state.creditList} addCredit={this.addCredit} />)
+    const CreditsComponent = () => (<Credits credits={this.state.creditList} 
+		                             addCredit={this.addCredit}
+		                             accountBalance={this.state.accountBalance}
+	                                     updateAccountBalance={this.updateAccountBalance}
+	/>)
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
